@@ -1,15 +1,20 @@
 #include "Game.h"
+
 Game::Game(GameConfigs* configs)
 {
 	if (configs == nullptr ||
 		configs->GetBoardSize() <= 0 ||
 		configs->GetBobmsCount() <= 0 ||
 		configs->GetBobmsCount() >= configs->GetBoardSize() * configs->GetBoardSize())
+	{
 		throw "Invalid input data";
+	}
 
+	workQueue = new WorkQueue();
 	board = new Board(configs->GetBoardSize());
-	this->isItinStepMade = false;
-	bombCount = 0;
+	isItinStepMade = false;
+	finished = false;
+	bombCount = configs->GetBobmsCount();
 }
 
 void Game::MakeStep(int str, int column)
@@ -20,12 +25,35 @@ void Game::MakeStep(int str, int column)
 	}
 	else
 	{
-		//TODO
+		if (str < 0 || str >= board->GetBoardSize() || column < 0 || column >= board->GetBoardSize())
+		{
+			return;
+		}
+		
+		Cell* currentCell = board->GetCell(str, column);
+		
+		if (currentCell->IsBombed())
+		{
+			finished = true;
+		}
+		else
+		{
+			workQueue->addWorkItem(new GameWorkItem(new GameWorkItemData(board, str, column)));
+			workQueue->ProcessItems();
+		}
+		
 	}
 }
 
 void Game::RestardGame(GameConfigs* configs)
 {
+	finished = false;
+	isItinStepMade = false;
+	bombCount = configs->GetBobmsCount();
+
+	delete board;
+
+	board = new Board(configs->GetBoardSize());
 }
 
 Board* Game::GetBoard()
@@ -36,6 +64,11 @@ Board* Game::GetBoard()
 int Game::GetBombCount()
 {
 	return bombCount;
+}
+
+bool Game::IsFinished()
+{
+	return finished;
 }
 
 void Game::MakeInitStep(int str, int column)
@@ -68,13 +101,68 @@ void Game::MakeInitStep(int str, int column)
 			}
 		}
 
-		Cell* cell = board->GetCell(str, column);
-		cell->SetVisible(true);
-		//TODO processing visibility
+		workQueue->addWorkItem(new GameWorkItem(new GameWorkItemData(board, str, column)));
+		workQueue->ProcessItems();
 	}
 }
 
 void Game::NotifyCellsBombIsNear(int str, int column)
 {
-	//TODO
+	int boardSize = board->GetBoardSize();
+	// processing steps
+	//	+----+----+----+
+	//  |  2 |  3 |  4 |
+	//	+----+----+----+
+	//  |  1 |here|  5 |
+	//	+----+----+----+
+	//  |  8 |  7 |  6 |
+	//	+----+----+----+
+
+	if (column - 1 >= 0)
+	{
+		Cell* cell = board->GetCell(str, column - 1);
+		cell->IncNumOfBombNearby();
+	}
+
+	if (column - 1 >= 0 && str - 1 >= 0)
+	{
+		Cell* cell = board->GetCell(str - 1, column - 1);
+		cell->IncNumOfBombNearby();
+	}
+
+	if (str - 1 >= 0)
+	{
+		Cell* cell = board->GetCell(str - 1, column);
+		cell->IncNumOfBombNearby();
+	}
+
+	if (str - 1 >= 0 && column + 1 < boardSize)
+	{
+		Cell* cell = board->GetCell(str - 1, column + 1);
+		cell->IncNumOfBombNearby();
+	}
+
+	if (column + 1 < boardSize)
+	{
+		Cell* cell = board->GetCell(str, column + 1);
+		cell->IncNumOfBombNearby();
+	}
+
+	if (str + 1 < boardSize && column + 1 < boardSize)
+	{
+		Cell* cell = board->GetCell(str - 1, column + 1);
+		cell->IncNumOfBombNearby();
+	}
+
+	if (str + 1 < boardSize)
+	{
+		Cell* cell = board->GetCell(str - 1, column);
+		cell->IncNumOfBombNearby();
+	}
+
+	if (str + 1 < boardSize && column - 1 >= 0)
+	{
+		Cell* cell = board->GetCell(str - 1, column - 1);
+		cell->IncNumOfBombNearby();
+	}
 }
