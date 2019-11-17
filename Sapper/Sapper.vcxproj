@@ -153,6 +153,7 @@
   <ItemGroup>
     <ClInclude Include="business\Board\Board.h" />
     <ClInclude Include="business\Cell\Cell.h" />
+    <ClInclude Include="business\Game\Game.h" />
     <ClInclude Include="business\Game\GameConfigs.h" />
     <ClInclude Include="business\Game\GameConfigsEnum.h" />
     <ClInclude Include="framework.h" />
@@ -164,6 +165,7 @@
   <ItemGroup>
     <ClCompile Include="business\Board\Board.cpp" />
     <ClCompile Include="business\Cell\Cell.cpp" />
+    <ClCompile Include="business\Game\Game.cpp" />
     <ClCompile Include="business\Game\GameConfigs.cpp" />
     <ClCompile Include="Sapper.cpp" />
     <ClCompile Include="view\GameConfigService\GameConfigService.cpp" />

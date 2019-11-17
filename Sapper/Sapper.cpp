@@ -134,7 +134,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     {
 	case WM_CREATE:
 	{
-		hEasyBtn = CreateWindowA("BUTTON", "Курсач Шостак", BS_PUSHBUTTON | WS_VISIBLE | WS_CHILD | WS_TABSTOP, 70, 45, 240, 20, hWnd, (HMENU)ID_EASY_BUTTON, hInst, NULL);
+		hEasyBtn = CreateWindowA("BUTTON", "Курсач У Шостак", BS_PUSHBUTTON | WS_VISIBLE | WS_CHILD | WS_TABSTOP, 70, 45, 240, 20, hWnd, (HMENU)ID_EASY_BUTTON, hInst, NULL);
 		hMediumBtn = CreateWindowA("BUTTON", "Лаба у Фадеевой", BS_PUSHBUTTON | WS_VISIBLE | WS_CHILD | WS_TABSTOP, 70, 85, 240, 20, hWnd, (HMENU)ID_EASY_BUTTON, hInst, NULL);
 		hHardBtn = CreateWindowA("BUTTON", "Экз у Клименкова", BS_PUSHBUTTON | WS_VISIBLE | WS_CHILD | WS_TABSTOP, 70, 125, 240, 20, hWnd, (HMENU)ID_EASY_BUTTON, hInst, NULL);
 
