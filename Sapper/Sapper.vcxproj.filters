@@ -45,6 +45,21 @@
     <ClInclude Include="business\Game\Game.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="business\WorkQueue\GameWorkItem.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="business\WorkQueue\GameWorkItemData.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="business\WorkQueue\WorkQueue.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="business\WorkQueue\WorkItem.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="business\WorkQueue\QueueEl\QueueEl.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Sapper.cpp">
@@ -63,6 +78,18 @@
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="business\Game\Game.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="business\WorkQueue\GameWorkItem.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="business\WorkQueue\GameWorkItemData.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="business\WorkQueue\WorkQueue.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="business\WorkQueue\QueueEl\QueueEl.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>

@@ -3,17 +3,17 @@ class Cell
 {
 public:
 	
-	void IncNumOfMimbNearby() { numOfBomdNearby++; }
+	void IncNumOfBombNearby();
 
-	void SetVisible(int visibile) { this->visible = visibile; }
+	void SetVisible(int visibile);
 
-	bool IsBombed() { return bombed; }
+	bool IsBombed();
 
-	void SetBombed(bool bombed) { this->bombed = bombed; }
+	void SetBombed(bool bombed);
 
-	int GetNumOfBombNearby() { return numOfBomdNearby; }
+	int GetNumOfBombNearby();
 
-	bool IsVisible() { return visible; }
+	bool IsVisible();
 
 	Cell();
 

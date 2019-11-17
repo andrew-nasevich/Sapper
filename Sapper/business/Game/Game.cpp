@@ -2,13 +2,14 @@
 Game::Game(GameConfigs* configs)
 {
 	if (configs == nullptr ||
-		configs->GetBoardSize <= 0 ||
-		configs->GetBobmsCount <= 0 ||
-		configs->GetBobmsCount >= configs->GetBoardSize * configs->GetBoardSize)
+		configs->GetBoardSize() <= 0 ||
+		configs->GetBobmsCount() <= 0 ||
+		configs->GetBobmsCount() >= configs->GetBoardSize() * configs->GetBoardSize())
 		throw "Invalid input data";
 
-	board = new Board(configs->GetBoardSize);
+	board = new Board(configs->GetBoardSize());
 	this->isItinStepMade = false;
+	bombCount = 0;
 }
 
 void Game::MakeStep(int str, int column)
@@ -49,14 +50,14 @@ void Game::MakeInitStep(int str, int column)
 			//TODO srand
 			while (true) 
 			{
-				_str = rand() % board->GetBoardSize;
-				_column = rand() % board->GetBoardSize;
+				_str = rand() % board->GetBoardSize();
+				_column = rand() % board->GetBoardSize();
 
 				if (_str != str && _column != column)
 				{
 					Cell* cell = board->GetCell(_str, _column);
 					
-					if (!cell->IsBombed)
+					if (!cell->IsBombed())
 					{
 						cell->SetBombed(true);
 						NotifyCellsBombIsNear(_str, _column);

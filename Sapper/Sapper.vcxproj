@@ -156,6 +156,11 @@
     <ClInclude Include="business\Game\Game.h" />
     <ClInclude Include="business\Game\GameConfigs.h" />
     <ClInclude Include="business\Game\GameConfigsEnum.h" />
+    <ClInclude Include="business\WorkQueue\GameWorkItem.h" />
+    <ClInclude Include="business\WorkQueue\GameWorkItemData.h" />
+    <ClInclude Include="business\WorkQueue\QueueEl\QueueEl.h" />
+    <ClInclude Include="business\WorkQueue\WorkItem.h" />
+    <ClInclude Include="business\WorkQueue\WorkQueue.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Sapper.h" />
@@ -167,6 +172,10 @@
     <ClCompile Include="business\Cell\Cell.cpp" />
     <ClCompile Include="business\Game\Game.cpp" />
     <ClCompile Include="business\Game\GameConfigs.cpp" />
+    <ClCompile Include="business\WorkQueue\GameWorkItem.cpp" />
+    <ClCompile Include="business\WorkQueue\GameWorkItemData.cpp" />
+    <ClCompile Include="business\WorkQueue\QueueEl\QueueEl.cpp" />
+    <ClCompile Include="business\WorkQueue\WorkQueue.cpp" />
     <ClCompile Include="Sapper.cpp" />
     <ClCompile Include="view\GameConfigService\GameConfigService.cpp" />
   </ItemGroup>
