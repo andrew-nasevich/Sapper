@@ -9,13 +9,15 @@ class Game
 {
 public:
 	Game(GameConfigs* configs);
-	
+	~Game();
+
 	void MakeStep(int str, int column);
 	void RestardGame(GameConfigs* configs);
 
 	Board* GetBoard();
 	int GetBombCount();
 	bool IsFinished();
+	bool IsWon();
 
 private:
 	void MakeInitStep(int str, int column);
@@ -25,6 +27,7 @@ private:
 	WorkQueue* workQueue;
 	bool isItinStepMade;
 	bool finished;
+	bool won;
 	int bombCount;
 };
 

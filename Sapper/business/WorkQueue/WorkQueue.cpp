@@ -20,8 +20,6 @@ void WorkQueue::ProcessItems()
 	QueueEl* currentEl;
 	WorkItem* currentWorkItem;
 
-	last = nullptr;
-
 	while (first != nullptr)
 	{
 		currentEl = first;
@@ -33,6 +31,7 @@ void WorkQueue::ProcessItems()
 		first = first->next;
 		delete currentEl;
 	}
+	last = nullptr;
 }
 
 WorkQueue::WorkQueue()

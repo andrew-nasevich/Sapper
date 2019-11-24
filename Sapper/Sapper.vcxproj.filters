@@ -60,6 +60,24 @@
     <ClInclude Include="business\WorkQueue\QueueEl\QueueEl.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="view\BoardDrawer\BoardDrawer.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="business\States\GameStatesEnum.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="view\ButtonDrawer\ButtonDrawer.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Controllers\MouseController.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Controllers\MouseButton.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="view\ButtonDrawer_.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Sapper.cpp">
@@ -90,6 +108,18 @@
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="business\WorkQueue\QueueEl\QueueEl.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="view\BoardDrawer\BoardDrawer.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="view\ButtonDrawer\ButtonDrawer.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Controllers\MouseController.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="view\ButtonDrawer_.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>

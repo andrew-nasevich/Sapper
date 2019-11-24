@@ -14,7 +14,14 @@ Game::Game(GameConfigs* configs)
 	board = new Board(configs->GetBoardSize());
 	isItinStepMade = false;
 	finished = false;
+	won = false;
 	bombCount = configs->GetBobmsCount();
+}
+
+Game::~Game()
+{
+	delete this->workQueue;
+	delete this->board;
 }
 
 void Game::MakeStep(int str, int column)
@@ -41,7 +48,27 @@ void Game::MakeStep(int str, int column)
 			workQueue->addWorkItem(new GameWorkItem(new GameWorkItemData(board, str, column)));
 			workQueue->ProcessItems();
 		}
-		
+	}
+
+	int visibleCells = 0;
+	int boardSize = board->GetBoardSize();
+	for (int i = 0; i < boardSize; i++)
+	{
+		for (int j = 0; j < boardSize; j++)
+		{
+			Cell* cell = board->GetCell(i, j);
+
+			if (cell->IsVisible())
+			{
+				visibleCells++;
+			}
+		}
+	}
+
+	if (visibleCells == boardSize * boardSize - bombCount)
+	{
+		won = true;
+		finished = true;
 	}
 }
 
@@ -71,6 +98,11 @@ bool Game::IsFinished()
 	return finished;
 }
 
+bool Game::IsWon()
+{
+	return won;
+}
+
 void Game::MakeInitStep(int str, int column)
 {
 	if (!isItinStepMade)
@@ -78,7 +110,7 @@ void Game::MakeInitStep(int str, int column)
 		isItinStepMade = true;
 		int _str, _column;
 
-		for (int i = 1; i <= bombCount; i++)
+		for (int i = 0; i < bombCount; i++)
 		{
 			//TODO srand
 			while (true) 
@@ -86,7 +118,11 @@ void Game::MakeInitStep(int str, int column)
 				_str = rand() % board->GetBoardSize();
 				_column = rand() % board->GetBoardSize();
 
-				if (_str != str && _column != column)
+				if (!(_str == str && (_column == column || _column == column - 1 || _column == column - 2 || _column == column  + 1 || _column == column  + 2)) &&
+					!(_str == str + 1 && (_column == column || _column == column - 1 || _column == column - 2 || _column == column + 1 || _column == column + 2))&&
+					!(_str == str - 1 && (_column == column || _column == column - 1 || _column == column - 2 || _column == column + 1 || _column == column + 2))&&
+					!(_str == str + 2 && (_column == column || _column == column - 1 || _column == column - 2 || _column == column + 1 || _column == column + 2))&&
+					!(_str == str - 2 && (_column == column || _column == column - 1 || _column == column - 2 || _column == column + 1 || _column == column + 2)))
 				{
 					Cell* cell = board->GetCell(_str, _column);
 					
@@ -150,19 +186,19 @@ void Game::NotifyCellsBombIsNear(int str, int column)
 
 	if (str + 1 < boardSize && column + 1 < boardSize)
 	{
-		Cell* cell = board->GetCell(str - 1, column + 1);
+		Cell* cell = board->GetCell(str + 1, column + 1);
 		cell->IncNumOfBombNearby();
 	}
 
 	if (str + 1 < boardSize)
 	{
-		Cell* cell = board->GetCell(str - 1, column);
+		Cell* cell = board->GetCell(str + 1, column);
 		cell->IncNumOfBombNearby();
 	}
 
 	if (str + 1 < boardSize && column - 1 >= 0)
 	{
-		Cell* cell = board->GetCell(str - 1, column - 1);
+		Cell* cell = board->GetCell(str + 1, column - 1);
 		cell->IncNumOfBombNearby();
 	}
 }

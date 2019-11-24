@@ -23,111 +23,112 @@ void GameWorkItem::Work(void* _queue)
 		//  |  8 |  7 |  6 |
 		//	+----+----+----+
 
-		if (column - 1 >= 0)
+		if (currentCell->GetNumOfBombNearby() == 0)
 		{
-			Cell* cell = board->GetCell(str, column - 1);
-			if (!cell->IsVisible())
+			if (column - 1 >= 0)
 			{
-				cell->SetVisible(true);
-				if (cell->GetNumOfBombNearby() == 0)
+				Cell* cell = board->GetCell(str, column - 1);
+				if (!cell->IsVisible())
 				{
-					queue->addWorkItem(new GameWorkItem(new GameWorkItemData(board, str, column - 1)));
+					cell->SetVisible(true);
+					if (cell->GetNumOfBombNearby() == 0)
+					{
+						queue->addWorkItem(new GameWorkItem(new GameWorkItemData(board, str, column - 1)));
+					}
+				}
+			}
+
+			if (column - 1 >= 0 && str - 1 >= 0)
+			{
+				Cell* cell = board->GetCell(str - 1, column - 1);
+				if (!cell->IsVisible())
+				{
+					cell->SetVisible(true);
+					if (cell->GetNumOfBombNearby() == 0)
+					{
+						queue->addWorkItem(new GameWorkItem(new GameWorkItemData(board, str - 1, column - 1)));
+					}
+				}
+			}
+
+			if (str - 1 >= 0)
+			{
+				Cell* cell = board->GetCell(str - 1, column);
+				if (!cell->IsVisible())
+				{
+					cell->SetVisible(true);
+					if (cell->GetNumOfBombNearby() == 0)
+					{
+						queue->addWorkItem(new GameWorkItem(new GameWorkItemData(board, str - 1, column)));
+					}
+				}
+			}
+
+			if (str - 1 >= 0 && column + 1 < boardSize)
+			{
+				Cell* cell = board->GetCell(str - 1, column + 1);
+				if (!cell->IsVisible())
+				{
+					cell->SetVisible(true);
+					if (cell->GetNumOfBombNearby() == 0)
+					{
+						queue->addWorkItem(new GameWorkItem(new GameWorkItemData(board, str - 1, column + 1)));
+					}
+				}
+			}
+
+			if (column + 1 < boardSize)
+			{
+				Cell* cell = board->GetCell(str, column + 1);
+				if (!cell->IsVisible())
+				{
+					cell->SetVisible(true);
+					if (cell->GetNumOfBombNearby() == 0)
+					{
+						queue->addWorkItem(new GameWorkItem(new GameWorkItemData(board, str, column + 1)));
+					}
+				}
+			}
+
+			if (str + 1 < boardSize && column + 1 < boardSize)
+			{
+				Cell* cell = board->GetCell(str + 1, column + 1);
+				if (!cell->IsVisible())
+				{
+					cell->SetVisible(true);
+					if (cell->GetNumOfBombNearby() == 0)
+					{
+						queue->addWorkItem(new GameWorkItem(new GameWorkItemData(board, str + 1, column + 1)));
+					}
+				}
+			}
+
+			if (str + 1 < boardSize)
+			{
+				Cell* cell = board->GetCell(str + 1, column);
+				if (!cell->IsVisible())
+				{
+					cell->SetVisible(true);
+					if (cell->GetNumOfBombNearby() == 0)
+					{
+						queue->addWorkItem(new GameWorkItem(new GameWorkItemData(board, str + 1, column)));
+					}
+				}
+			}
+
+			if (str + 1 < boardSize && column - 1 >= 0)
+			{
+				Cell* cell = board->GetCell(str + 1, column - 1);
+				if (!cell->IsVisible())
+				{
+					cell->SetVisible(true);
+					if (cell->GetNumOfBombNearby() == 0)
+					{
+						queue->addWorkItem(new GameWorkItem(new GameWorkItemData(board, str + 1, column - 1)));
+					}
 				}
 			}
 		}
-
-		if (column - 1 >= 0 && str - 1 >= 0)
-		{
-			Cell* cell = board->GetCell(str - 1, column - 1);
-			if (!cell->IsVisible())
-			{
-				cell->SetVisible(true);
-				if (cell->GetNumOfBombNearby() == 0)
-				{
-					queue->addWorkItem(new GameWorkItem(new GameWorkItemData(board, str - 1, column - 1)));
-				}
-			}
-		}
-
-		if (str - 1 >= 0)
-		{
-			Cell* cell = board->GetCell(str - 1, column);
-			if (!cell->IsVisible())
-			{
-				cell->SetVisible(true);
-				if (cell->GetNumOfBombNearby() == 0)
-				{
-					queue->addWorkItem(new GameWorkItem(new GameWorkItemData(board, str - 1, column)));
-				}
-			}
-		}
-
-		if (str - 1 >= 0 && column + 1 < boardSize)
-		{
-			Cell* cell = board->GetCell(str - 1, column + 1);
-			if (!cell->IsVisible())
-			{
-				cell->SetVisible(true);
-				if (cell->GetNumOfBombNearby() == 0)
-				{
-					queue->addWorkItem(new GameWorkItem(new GameWorkItemData(board, str - 1, column + 1)));
-				}
-			}
-		}
-
-		if (column + 1 < boardSize)
-		{
-			Cell* cell = board->GetCell(str, column + 1);
-			if (!cell->IsVisible())
-			{
-				cell->SetVisible(true);
-				if (cell->GetNumOfBombNearby() == 0)
-				{
-					queue->addWorkItem(new GameWorkItem(new GameWorkItemData(board, str, column + 1)));
-				}
-			}
-		}
-
-		if (str + 1 < boardSize && column + 1 < boardSize)
-		{
-			Cell* cell = board->GetCell(str - 1, column + 1);
-			if (!cell->IsVisible())
-			{
-				cell->SetVisible(true);
-				if (cell->GetNumOfBombNearby() == 0)
-				{
-					queue->addWorkItem(new GameWorkItem(new GameWorkItemData(board, str + 1, column + 1)));
-				}
-			}
-		}
-
-		if (str + 1 < boardSize)
-		{
-			Cell* cell = board->GetCell(str - 1, column);
-			if (!cell->IsVisible())
-			{
-				cell->SetVisible(true);
-				if (cell->GetNumOfBombNearby() == 0)
-				{
-					queue->addWorkItem(new GameWorkItem(new GameWorkItemData(board, str + 1, column)));
-				}
-			}
-		}
-
-		if (str + 1 < boardSize && column - 1 >= 0)
-		{
-			Cell* cell = board->GetCell(str - 1, column - 1);
-			if (!cell->IsVisible())
-			{
-				cell->SetVisible(true);
-				if (cell->GetNumOfBombNearby() == 0)
-				{
-					queue->addWorkItem(new GameWorkItem(new GameWorkItemData(board, str + 1, column - 1)));
-				}
-			}
-		}
-
-		delete data;
 	}
 }
 

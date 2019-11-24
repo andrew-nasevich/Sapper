@@ -19,5 +19,5 @@ Cell* Board::GetCell(int str, int column)
 	if (str < 0 || str >= boardSize || column < 0 || column >= boardSize)
 		return nullptr;
 
-	return cells[(str - 1) * boardSize + column - 1];
+	return cells[str  * boardSize + column];
 }

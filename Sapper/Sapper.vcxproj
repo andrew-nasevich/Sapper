@@ -156,15 +156,21 @@
     <ClInclude Include="business\Game\Game.h" />
     <ClInclude Include="business\Game\GameConfigs.h" />
     <ClInclude Include="business\Game\GameConfigsEnum.h" />
+    <ClInclude Include="business\States\GameStatesEnum.h" />
     <ClInclude Include="business\WorkQueue\GameWorkItem.h" />
     <ClInclude Include="business\WorkQueue\GameWorkItemData.h" />
     <ClInclude Include="business\WorkQueue\QueueEl\QueueEl.h" />
     <ClInclude Include="business\WorkQueue\WorkItem.h" />
     <ClInclude Include="business\WorkQueue\WorkQueue.h" />
+    <ClInclude Include="Controllers\MouseButton.h" />
+    <ClInclude Include="Controllers\MouseController.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Sapper.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="view\BoardDrawer\BoardDrawer.h" />
+    <ClInclude Include="view\ButtonDrawer\ButtonDrawer.h" />
+    <ClInclude Include="view\ButtonDrawer_.h" />
     <ClInclude Include="view\GameConfigService\GameConfigService.h" />
   </ItemGroup>
   <ItemGroup>
@@ -176,7 +182,11 @@
     <ClCompile Include="business\WorkQueue\GameWorkItemData.cpp" />
     <ClCompile Include="business\WorkQueue\QueueEl\QueueEl.cpp" />
     <ClCompile Include="business\WorkQueue\WorkQueue.cpp" />
+    <ClCompile Include="Controllers\MouseController.cpp" />
     <ClCompile Include="Sapper.cpp" />
+    <ClCompile Include="view\BoardDrawer\BoardDrawer.cpp" />
+    <ClCompile Include="view\ButtonDrawer\ButtonDrawer.cpp" />
+    <ClCompile Include="view\ButtonDrawer_.cpp" />
     <ClCompile Include="view\GameConfigService\GameConfigService.cpp" />
   </ItemGroup>
   <ItemGroup>

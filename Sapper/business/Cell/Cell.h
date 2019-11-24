@@ -9,7 +9,12 @@ public:
 
 	bool IsBombed();
 
+	bool IsMarked();
+
+	bool ChangeMarked();
+
 	void SetBombed(bool bombed);
+
 
 	int GetNumOfBombNearby();
 
@@ -21,5 +26,6 @@ private:
 	int numOfBomdNearby;
 	bool bombed;
 	bool visible;
+	bool marked;
 };
 
