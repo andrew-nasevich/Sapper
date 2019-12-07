@@ -11,7 +11,9 @@ Game::Game(GameConfigs* configs)
 	}
 
 	workQueue = new WorkQueue();
+
 	board = new Board(configs->GetBoardSize());
+	
 	isItinStepMade = false;
 	finished = false;
 	won = false;
@@ -112,7 +114,6 @@ void Game::MakeInitStep(int str, int column)
 
 		for (int i = 0; i < bombCount; i++)
 		{
-			//TODO srand
 			while (true) 
 			{
 				_str = rand() % board->GetBoardSize();
@@ -149,7 +150,17 @@ void Game::NotifyCellsBombIsNear(int str, int column)
 	//	+----+----+----+
 	//  |  2 |  3 |  4 |
 	//	+----+----+----+
-	//  |  1 |here|  5 |
+	//  |  1 |bomb|  5 |
+	//	+----+----+----+
+	//  |  8 |  7 |  6 |
+	//	+----+----+----+
+
+
+	// processing steps
+	//	+----+----+----+
+	//  |  2 |  3 |  4 |
+	//	+----+----+----+
+	//  |here|bomb|  5 |
 	//	+----+----+----+
 	//  |  8 |  7 |  6 |
 	//	+----+----+----+
@@ -160,11 +171,30 @@ void Game::NotifyCellsBombIsNear(int str, int column)
 		cell->IncNumOfBombNearby();
 	}
 
+	// processing steps
+	//	+----+----+----+
+	//  |here|  3 |  4 |
+	//	+----+----+----+
+	//  |  1 |bomb|  5 |
+	//	+----+----+----+
+	//  |  8 |  7 |  6 |
+	//	+----+----+----+
+
 	if (column - 1 >= 0 && str - 1 >= 0)
 	{
 		Cell* cell = board->GetCell(str - 1, column - 1);
 		cell->IncNumOfBombNearby();
 	}
+
+	// processing steps
+	//	+----+----+----+
+	//  |  2 |here|  4 |
+	//	+----+----+----+
+	//  |  1 |bomb|  5 |
+	//	+----+----+----+
+	//  |  8 |  7 |  6 |
+	//	+----+----+----+
+
 
 	if (str - 1 >= 0)
 	{
@@ -172,11 +202,30 @@ void Game::NotifyCellsBombIsNear(int str, int column)
 		cell->IncNumOfBombNearby();
 	}
 
+	// processing steps
+	//	+----+----+----+
+	//  |  2 |  3 |here|
+	//	+----+----+----+
+	//  |  1 |bomb|  5 |
+	//	+----+----+----+
+	//  |  8 |  7 |  6 |
+	//	+----+----+----+
+
 	if (str - 1 >= 0 && column + 1 < boardSize)
 	{
 		Cell* cell = board->GetCell(str - 1, column + 1);
 		cell->IncNumOfBombNearby();
 	}
+
+	// processing steps
+	//	+----+----+----+
+	//  |  2 |  3 |  4 |
+	//	+----+----+----+
+	//  |  1 |bomb|here|
+	//	+----+----+----+
+	//  |  8 |  7 |  6 |
+	//	+----+----+----+
+
 
 	if (column + 1 < boardSize)
 	{
@@ -184,17 +233,47 @@ void Game::NotifyCellsBombIsNear(int str, int column)
 		cell->IncNumOfBombNearby();
 	}
 
+	// processing steps
+	//	+----+----+----+
+	//  |  2 |  3 |  4 |
+	//	+----+----+----+
+	//  |  1 |bomb|  5 |
+	//	+----+----+----+
+	//  |  8 |  7 |here|
+	//	+----+----+----+
+
+
 	if (str + 1 < boardSize && column + 1 < boardSize)
 	{
 		Cell* cell = board->GetCell(str + 1, column + 1);
 		cell->IncNumOfBombNearby();
 	}
 
+	// processing steps
+	//	+----+----+----+
+	//  |  2 |  3 |  4 |
+	//	+----+----+----+
+	//  |  1 |bomb|  5 |
+	//	+----+----+----+
+	//  |  8 |here|  6 |
+	//	+----+----+----+
+
+
 	if (str + 1 < boardSize)
 	{
 		Cell* cell = board->GetCell(str + 1, column);
 		cell->IncNumOfBombNearby();
 	}
+
+	// processing steps
+	//	+----+----+----+
+	//  |  2 |  3 |  4 |
+	//	+----+----+----+
+	//  |  1 |bomb|  5 |
+	//	+----+----+----+
+	//  |here|  7 |  6 |
+	//	+----+----+----+
+
 
 	if (str + 1 < boardSize && column - 1 >= 0)
 	{

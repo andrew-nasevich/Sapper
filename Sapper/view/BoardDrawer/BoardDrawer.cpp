@@ -7,20 +7,25 @@ void BoardDrawer::Draw(Board* board, HWND hWnd, HDC hdc, bool finished)
 	int cellLength;
 	int extraLength;
 	int _extraLength;
+	
 	int startX;
 	int startY;
 	int x, y;
 	int* cellStartX;
 	int* cellStartY;
+
 	bool bottom_top;
+	
 	LPRECT workingSpace = new RECT();
 	RECT rect;
 	HFONT hFont;
-	static HBRUSH hBrush = CreateSolidBrush(RGB(50, 150, 250));
+	
+	static HBRUSH hBrush = CreateSolidBrush(RGB(180, 230, 250));
 
 	GetClientRect(hWnd, workingSpace);
 
 	bottom_top = (workingSpace->bottom - workingSpace->top < workingSpace->right - workingSpace->left);
+	
 	if (bottom_top)
 	{
 		boardLength = workingSpace->bottom - workingSpace->top;
@@ -41,6 +46,13 @@ void BoardDrawer::Draw(Board* board, HWND hWnd, HDC hdc, bool finished)
 	
 	if (boardLength > 150)
 	{
+		rect.left = startX;
+		rect.right = rect.left + boardLength;
+		rect.top = startY;
+		rect.bottom = rect.top + boardLength;
+
+		FillRect(hdc, &rect, (HBRUSH)GetCurrentObject(hdc, OBJ_BRUSH));
+
 		x = startX;
 		y = startY;
 		_extraLength = extraLength;
@@ -53,6 +65,7 @@ void BoardDrawer::Draw(Board* board, HWND hWnd, HDC hdc, bool finished)
 			
 			MoveToEx(hdc, x, y + i * cellLength, nullptr);
 			LineTo(hdc, x + boardLength, y + i * cellLength);
+	
 			if (_extraLength)
 			{
 				y++;
@@ -63,6 +76,7 @@ void BoardDrawer::Draw(Board* board, HWND hWnd, HDC hdc, bool finished)
 		x = startX;
 		y = startY;
 		_extraLength = extraLength;
+		
 		for (int i = 0; i < board->GetBoardSize() + 1; i++)
 		{
 			cellStartX[i] = x + i * cellLength;
@@ -87,7 +101,7 @@ void BoardDrawer::Draw(Board* board, HWND hWnd, HDC hdc, bool finished)
 			for (int col = 0; col < board->GetBoardSize(); col++)
 			{
 				Cell* cell = board->GetCell(row, col);
-				if (finished || true)
+				if (finished)
 				{
 					if(cell->IsBombed())
 					{
@@ -97,10 +111,64 @@ void BoardDrawer::Draw(Board* board, HWND hWnd, HDC hdc, bool finished)
 				}
 				if (cell->IsVisible())
 				{
-					if (cell->GetNumOfBombNearby())
+					if (int count = cell->GetNumOfBombNearby())
 					{
-						SetTextColor(hdc, RGB(0, 0, 0));
-						TextOutA(hdc, cellStartX[row] + cellLength / 3, cellStartY[col] + cellLength / 3, (std::to_string(cell->GetNumOfBombNearby())).c_str(), 1);
+						switch (count)
+						{
+						case 1:
+							SetTextColor(hdc, RGB(0, 0, 150));
+
+							TextOutA(hdc, cellStartX[row] + cellLength / 3, cellStartY[col] + cellLength / 3, "1", 1);
+							break;
+
+						case 2:
+							SetTextColor(hdc, RGB(0, 150, 0));
+
+							TextOutA(hdc, cellStartX[row] + cellLength / 3, cellStartY[col] + cellLength / 3, "2", 1);
+							break;
+
+						case 3:
+							SetTextColor(hdc, RGB(150, 0, 0));
+
+							TextOutA(hdc, cellStartX[row] + cellLength / 3, cellStartY[col] + cellLength / 3, "3", 1);
+							break;
+
+						case 4:
+							SetTextColor(hdc, RGB(0, 150, 150));
+
+							TextOutA(hdc, cellStartX[row] + cellLength / 3, cellStartY[col] + cellLength / 3, "4", 1);
+							break;
+
+						case 5:
+							SetTextColor(hdc, RGB(150, 0, 150));
+
+							TextOutA(hdc, cellStartX[row] + cellLength / 3, cellStartY[col] + cellLength / 3, "5", 1);
+							break;
+
+						case 6:
+							SetTextColor(hdc, RGB(150, 150, 0));
+
+							TextOutA(hdc, cellStartX[row] + cellLength / 3, cellStartY[col] + cellLength / 3, "6", 1);
+							break;
+
+						case 7:
+							SetTextColor(hdc, RGB(0, 250, 250));
+
+							TextOutA(hdc, cellStartX[row] + cellLength / 3, cellStartY[col] + cellLength / 3, "7", 1);
+							break;
+
+						case 8:
+							SetTextColor(hdc, RGB(250, 250, 0));
+
+							TextOutA(hdc, cellStartX[row] + cellLength / 3, cellStartY[col] + cellLength / 3, "8", 1);
+							break;
+
+						default:
+							SetTextColor(hdc, RGB(0, 150, 0));
+
+							TextOutA(hdc, cellStartX[row] + cellLength / 3, cellStartY[col] + cellLength / 3, (std::to_string(cell->GetNumOfBombNearby())).c_str(), 1);
+							break;
+						}
 					}
 					else
 					{
@@ -122,5 +190,7 @@ void BoardDrawer::Draw(Board* board, HWND hWnd, HDC hdc, bool finished)
 				}
 			}
 		}
+
+		DeleteObject(hFont);
 	}
 }

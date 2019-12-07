@@ -6,6 +6,7 @@ public:
 	QueueEl(WorkItem* _workItem);
 
 	WorkItem* workItem;
+
 	QueueEl* next;
 };
 

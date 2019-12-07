@@ -33,8 +33,10 @@ void ButtonDrawer::Draw(HWND hWnd, HDC hdc)
 
 		Rectangle(hdc, startX +  boardLength / 4, startY + boardLength / 7, startX + boardLength / 2 + boardLength / 4, startY + boardLength / 7 + boardLength / 6);
 		TextOut(hdc, startX + 1.65 * boardLength / 4, startY + 1.35 * boardLength / 7, L"Легко", 5);
+		
 		Rectangle(hdc, startX + boardLength / 4, startY + 3 * boardLength / 7, startX + boardLength / 2 + boardLength / 4, startY + 3 * boardLength / 7 + boardLength / 6);
 		TextOut(hdc, startX + 1.6 * boardLength / 4, startY + 3.35 * boardLength / 7, L"Средне", 6);
+		
 		Rectangle(hdc, startX + boardLength / 4, startY + 5 * boardLength / 7, startX + boardLength / 2 + boardLength / 4, startY + 5 * boardLength / 7 + boardLength / 6);
 		TextOut(hdc, startX + 1.6 * boardLength / 4, startY + 5.35 * boardLength / 7, L"Сложно", 6);
 	}

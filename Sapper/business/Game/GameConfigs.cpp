@@ -6,6 +6,7 @@ GameConfigs::GameConfigs(GameDifficulty difficulty)
 	{
 		boardSize = 8;
 		bombsCount = 10;
+
 		return;
 	}
 
@@ -13,13 +14,15 @@ GameConfigs::GameConfigs(GameDifficulty difficulty)
 	{
 		boardSize = 14;
 		bombsCount = 40;
+
 		return;
 	}
 	
 	if (difficulty == hard)
 	{
 		boardSize = 20;
-		bombsCount = 99;
+		bombsCount = 100;
+
 		return;
 	}
 

@@ -2,6 +2,7 @@
 
 #include "../../business/Board/Board.h"
 #include "../../framework.h"
+
 class BoardDrawer
 {
 public:

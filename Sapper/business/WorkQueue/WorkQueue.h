@@ -7,13 +7,13 @@ class WorkQueue
 {
 public:
 	WorkQueue();
+
 	void addWorkItem(WorkItem* workItem);
+
 	void ProcessItems();
 
 private:
 	QueueEl* first;
+
 	QueueEl* last;
 };
-
-
-

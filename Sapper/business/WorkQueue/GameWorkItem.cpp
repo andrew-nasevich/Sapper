@@ -7,6 +7,7 @@ void GameWorkItem::Work(void* _queue)
 	{
 		WorkQueue* queue = static_cast<WorkQueue*>(_queue);
 		Board* board = data->board;
+
 		int str = data->str;
 		int column = data->column;
 		int boardSize = board->GetBoardSize();
@@ -14,17 +15,27 @@ void GameWorkItem::Work(void* _queue)
 		Cell* currentCell = board->GetCell(str, column);
 		currentCell->SetVisible(true);
 
-		// processing steps
+		//	processing steps
 		//	+----+----+----+
 		//  |  2 |  3 |  4 |
 		//	+----+----+----+
-		//  |  1 |here|  5 |
+		//  |  1 |cell|  5 |
 		//	+----+----+----+
 		//  |  8 |  7 |  6 |
 		//	+----+----+----+
 
 		if (currentCell->GetNumOfBombNearby() == 0)
 		{
+
+			// processing steps
+			//	+----+----+----+
+			//  |  2 |  3 |  4 |
+			//	+----+----+----+
+			//  |this|cell|  5 |
+			//	+----+----+----+
+			//  |  8 |  7 |  6 |
+			//	+----+----+----+
+
 			if (column - 1 >= 0)
 			{
 				Cell* cell = board->GetCell(str, column - 1);
@@ -37,6 +48,15 @@ void GameWorkItem::Work(void* _queue)
 					}
 				}
 			}
+
+			// processing steps
+			//	+----+----+----+
+			//  |this|  3 |  4 |
+			//	+----+----+----+
+			//  |  1 |cell|  5 |
+			//	+----+----+----+
+			//  |  8 |  7 |  6 |
+			//	+----+----+----+
 
 			if (column - 1 >= 0 && str - 1 >= 0)
 			{
@@ -51,6 +71,15 @@ void GameWorkItem::Work(void* _queue)
 				}
 			}
 
+			// processing steps
+			//	+----+----+----+
+			//  |  2 |this|  4 |
+			//	+----+----+----+
+			//  |  1 |cell|  5 |
+			//	+----+----+----+
+			//  |  8 |  7 |  6 |
+			//	+----+----+----+
+
 			if (str - 1 >= 0)
 			{
 				Cell* cell = board->GetCell(str - 1, column);
@@ -63,6 +92,15 @@ void GameWorkItem::Work(void* _queue)
 					}
 				}
 			}
+
+			// processing steps
+			//	+----+----+----+
+			//  |  2 |  3 |this|
+			//	+----+----+----+
+			//  |  1 |cell|  5 |
+			//	+----+----+----+
+			//  |  8 |  7 |  6 |
+			//	+----+----+----+
 
 			if (str - 1 >= 0 && column + 1 < boardSize)
 			{
@@ -77,6 +115,15 @@ void GameWorkItem::Work(void* _queue)
 				}
 			}
 
+			// processing steps
+			//	+----+----+----+
+			//  |  2 |  3 |  4 |
+			//	+----+----+----+
+			//  |  1 |cell|this|
+			//	+----+----+----+
+			//  |  8 |  7 |  6 |
+			//	+----+----+----+
+
 			if (column + 1 < boardSize)
 			{
 				Cell* cell = board->GetCell(str, column + 1);
@@ -89,6 +136,15 @@ void GameWorkItem::Work(void* _queue)
 					}
 				}
 			}
+
+			// processing steps
+			//	+----+----+----+
+			//  |  2 |  3 |  4 |
+			//	+----+----+----+
+			//  |  1 |cell|  5 |
+			//	+----+----+----+
+			//  |  8 |  7 |this|
+			//	+----+----+----+
 
 			if (str + 1 < boardSize && column + 1 < boardSize)
 			{
@@ -103,6 +159,15 @@ void GameWorkItem::Work(void* _queue)
 				}
 			}
 
+			// processing steps
+			//	+----+----+----+
+			//  |  2 |  3 |  4 |
+			//	+----+----+----+
+			//  |  1 |cell|  5 |
+			//	+----+----+----+
+			//  |  8 |this|  6 |
+			//	+----+----+----+
+
 			if (str + 1 < boardSize)
 			{
 				Cell* cell = board->GetCell(str + 1, column);
@@ -115,6 +180,15 @@ void GameWorkItem::Work(void* _queue)
 					}
 				}
 			}
+
+			// processing steps
+			//	+----+----+----+
+			//  |  2 |  3 |  4 |
+			//	+----+----+----+
+			//  |  1 |cell|  5 |
+			//	+----+----+----+
+			//  |this|  7 |  6 |
+			//	+----+----+----+
 
 			if (str + 1 < boardSize && column - 1 >= 0)
 			{
@@ -141,4 +215,3 @@ GameWorkItem::~GameWorkItem()
 {
 	delete data;
 }
-

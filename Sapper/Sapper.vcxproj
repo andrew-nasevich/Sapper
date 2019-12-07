@@ -162,7 +162,6 @@
     <ClInclude Include="business\WorkQueue\QueueEl\QueueEl.h" />
     <ClInclude Include="business\WorkQueue\WorkItem.h" />
     <ClInclude Include="business\WorkQueue\WorkQueue.h" />
-    <ClInclude Include="Controllers\MouseButton.h" />
     <ClInclude Include="Controllers\MouseController.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Resource.h" />

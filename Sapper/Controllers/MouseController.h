@@ -10,5 +10,6 @@ class MouseController
 {
 public:
 	GameDifficulty ProcessChossingDifficulty(HWND hWnd, POINT cp);
+
 	void ProcessClick(HWND hWnd, POINT p, Game* game, MouseButton mouseButton, GameStatesEnum* gameState);
 };

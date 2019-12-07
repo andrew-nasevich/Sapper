@@ -6,6 +6,7 @@ GameDifficulty MouseController::ProcessChossingDifficulty(HWND hWnd, POINT cp)
 	int boardLength;
 	int startX;
 	int startY;
+
 	PAINTSTRUCT ps;
 	LPRECT workingSpace = new RECT();
 	HFONT hFont;
@@ -52,14 +53,16 @@ void MouseController::ProcessClick(HWND hWnd, POINT p, Game* game, MouseButton m
 	int cellLength;
 	int extraLength;
 	int _extraLength;
+
 	int startX;
 	int startY;
 	int x, y;
 	int* cellStartX;
 	int* cellStartY;
+	
 	bool bottom_top;
+	
 	LPRECT workingSpace = new RECT();
-	HBITMAP image;
 	HFONT hFont;
 	Board* board = game->GetBoard();
 
@@ -84,11 +87,12 @@ void MouseController::ProcessClick(HWND hWnd, POINT p, Game* game, MouseButton m
 	extraLength = boardLength - cellLength * board->GetBoardSize();
 
 
-	if (boardLength > 150)
+	if (boardLength > 150 )
 	{
 		x = startX;
 		y = startY;
 		_extraLength = extraLength;
+
 		cellStartX = (int*)malloc(sizeof(int) * board->GetBoardSize());
 		cellStartY = (int*)malloc(sizeof(int) * board->GetBoardSize());
 
@@ -105,6 +109,7 @@ void MouseController::ProcessClick(HWND hWnd, POINT p, Game* game, MouseButton m
 		x = startX;
 		y = startY;
 		_extraLength = extraLength;
+
 		for (int i = 0; i < board->GetBoardSize() + 1; i++)
 		{
 			cellStartX[i] = x + i * cellLength;

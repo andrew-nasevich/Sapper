@@ -8,11 +8,20 @@ Cell::Cell()
 	marked = false;
 }
 
-void Cell::IncNumOfBombNearby() { numOfBomdNearby++; }
+void Cell::IncNumOfBombNearby()
+{
+	numOfBomdNearby++;
+}
 
-void Cell::SetVisible(int visibile) { this->visible = visibile; }
+void Cell::SetVisible(int visibile) 
+{ 
+	this->visible = visibile; 
+}
 
-bool Cell::IsBombed() { return bombed; }
+bool Cell::IsBombed() 
+{
+	return bombed;
+}
 
 bool Cell::IsMarked()
 {
@@ -24,8 +33,17 @@ bool Cell::ChangeMarked()
 	return marked = marked ^ true;
 }
 
-void Cell::SetBombed(bool bombed) { this->bombed = bombed; }
+void Cell::SetBombed(bool bombed) 
+{
+	this->bombed = bombed; 
+}
 
-int Cell::GetNumOfBombNearby() { return numOfBomdNearby; }
+int Cell::GetNumOfBombNearby() 
+{
+	return numOfBomdNearby; 
+}
 
-bool Cell::IsVisible() { return visible; }
+bool Cell::IsVisible()
+{ 
+	return visible; 
+}

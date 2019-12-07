@@ -72,9 +72,6 @@
     <ClInclude Include="Controllers\MouseController.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Controllers\MouseButton.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="view\ButtonDrawer_.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>

@@ -4,6 +4,7 @@ Board::Board(int boardSize)
 {
 	cells = new Cell*[boardSize * boardSize];
 	this->boardSize = boardSize;
+
 	for(int i = 0; i <= boardSize * boardSize -1 ; i++)
 		cells[i] = new Cell();
 }

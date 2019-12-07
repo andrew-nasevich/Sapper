@@ -11,21 +11,23 @@ public:
 
 	bool IsMarked();
 
+	bool IsVisible();
+
 	bool ChangeMarked();
 
 	void SetBombed(bool bombed);
 
-
 	int GetNumOfBombNearby();
-
-	bool IsVisible();
 
 	Cell();
 
 private:
 	int numOfBomdNearby;
+
 	bool bombed;
+
 	bool visible;
+
 	bool marked;
 };
 

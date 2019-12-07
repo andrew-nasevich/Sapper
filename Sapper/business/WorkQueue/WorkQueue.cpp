@@ -6,11 +6,13 @@ void WorkQueue::addWorkItem(WorkItem* workItem)
 	if (first == nullptr)
 	{
 		first = new QueueEl(workItem);
+
 		last = first;
 	}
 	else
 	{
 		last->next = new QueueEl(workItem);
+
 		last = last->next;
 	}
 }
@@ -24,6 +26,7 @@ void WorkQueue::ProcessItems()
 	{
 		currentEl = first;
 		currentWorkItem = first->workItem;
+
 		currentWorkItem->Work(this);
 
 		delete currentWorkItem;

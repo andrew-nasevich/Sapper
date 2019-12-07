@@ -31,12 +31,13 @@ LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
 
 Game* game;
-ButtonDrawer_* battonDrawer;
+ButtonDrawer_* buttonDrawer;
 MouseController* mouseController;
 BoardDrawer* boardDrawer;
 GameConfigs* gameConfigs;
 GameStatesEnum gameState;
 GameDifficulty gameDifficulty;
+
 int answer = 0;
 bool playAgan = true;
 
@@ -150,7 +151,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	{
 	case WM_CREATE:
 	{
-		battonDrawer = new ButtonDrawer_();
+		buttonDrawer = new ButtonDrawer_();
 		mouseController = new MouseController();
 		boardDrawer = new BoardDrawer();
 		gameState = ChoosingDifficulty;
@@ -180,14 +181,25 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		PAINTSTRUCT ps;
 		HDC hdc = BeginPaint(hWnd, &ps);
 
+		RECT clientRect;
+		HBRUSH hBrush = CreateSolidBrush(RGB(240, 240, 240));
+		HGDIOBJ oldHBrush = SelectObject(hdc, hBrush);
+
+		GetClientRect(hWnd, &clientRect);
+		FillRect(hdc, &clientRect, hBrush);
+
+		SelectObject(hdc, oldHBrush);
+	
 		switch (gameState)
 		{
 		case ChoosingDifficulty:
-			battonDrawer->Draw(hWnd, hdc);
+			buttonDrawer->Draw(hWnd, hdc);
 			break;
+
 		case Playing:
 			boardDrawer->Draw(game->GetBoard(), hWnd, hdc, false);
 			break;
+
 		case Lost:
 			boardDrawer->Draw(game->GetBoard(), hWnd, hdc, true);
 			if (playAgan)
@@ -197,6 +209,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				{
 					delete game;
 					gameState = ChoosingDifficulty;
+
 					InvalidateRect(hWnd, NULL, true);
 					UpdateWindow(hWnd);
 				}
@@ -206,6 +219,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				}
 			}
 			break;
+
 		case Won:
 			boardDrawer->Draw(game->GetBoard(), hWnd, hdc, true);
 			if (playAgan)
@@ -215,6 +229,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				{
 					delete game;
 					gameState = ChoosingDifficulty;
+
 					InvalidateRect(hWnd, NULL, true);
 					UpdateWindow(hWnd);
 				}
@@ -226,12 +241,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			break;
 		}
 
-		// TODO: Добавьте сюда любой код прорисовки, использующий HDC...
 		EndPaint(hWnd, &ps);
 	}
 	break;
+
 	case WM_RBUTTONUP:
+
 		POINT p;
+
 		p.y = HIWORD(lParam);
 		p.x = LOWORD(lParam);
 
@@ -242,6 +259,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			break;
 		}
 		break;
+
 	case WM_LBUTTONUP:
 	{
 		POINT p;
@@ -251,6 +269,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		switch (gameState)
 		{
 		case ChoosingDifficulty:
+
 			gameDifficulty = mouseController->ProcessChossingDifficulty(hWnd, p);
 
 			switch (gameDifficulty)
@@ -258,29 +277,40 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			case easy:
 				gameConfigs = new GameConfigs(easy);
 				game = new Game(gameConfigs);
+
 				gameState = Playing;
+
 				delete gameConfigs;
 
 				InvalidateRect(hWnd, NULL, true);
 				UpdateWindow(hWnd);
+
 				break;
+
 			case medium:
 				gameConfigs = new GameConfigs(medium);
 				game = new Game(gameConfigs);
+
 				gameState = Playing;
+
 				delete gameConfigs;
 
 				InvalidateRect(hWnd, NULL, true);
 				UpdateWindow(hWnd);
+
 				break;
+
 			case hard:
 				gameConfigs = new GameConfigs(hard);
 				game = new Game(gameConfigs);
+
 				gameState = Playing;
+
 				delete gameConfigs;
 
 				InvalidateRect(hWnd, NULL, true);
 				UpdateWindow(hWnd);
+
 				break;
 			}
 			break;
@@ -288,8 +318,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		case Playing:
 			mouseController->ProcessClick(hWnd, p, game, LButton, &gameState);
 			break;
+
 		case Lost:
 			break;
+
 		case Won:
 			break;
 		}
@@ -298,6 +330,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		break;
+
 	default:
 		return DefWindowProc(hWnd, message, wParam, lParam);
 	}
